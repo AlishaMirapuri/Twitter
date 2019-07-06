@@ -58,7 +58,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
-Some challenges I encountered were 
+Some challenges I encountered were understanding where to put certain methods depending on the actions I wanted to take. I also got to the end of several stretch activites but wasn't able to finish because I ran out of time. I also struggled a little with the constraints.
 
 ## Open-source libraries used
 
