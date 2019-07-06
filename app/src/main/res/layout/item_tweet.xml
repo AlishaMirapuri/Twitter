@@ -33,6 +33,7 @@
         android:layout_width="147dp"
         android:layout_height="33dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timeStamp" />
@@ -44,6 +45,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:autoLink="all"
         android:linksClickable="true"
         android:text="TextView"
@@ -67,9 +69,19 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/media"
         app:srcCompat="@drawable/ic_vector_retweet_stroke" />
+
+    <ImageView
+        android:id="@+id/media"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        app:layout_constraintStart_toEndOf="@+id/tvBody"
+        app:layout_constraintTop_toBottomOf="@+id/timeStamp"
+        app:srcCompat="@android:color/black" />
 
     <!--<ImageView-->
         <!--android:id="@+id/media"-->

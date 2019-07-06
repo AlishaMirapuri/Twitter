@@ -1,6 +1,7 @@
 package com.codepath.apps.restclienttemplate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.codepath.apps.restclienttemplate.models.Tweet;
+
+import org.parceler.Parcels;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -25,7 +28,6 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> {
 
     private List<Tweet> mTweets;
-   // String mediaImageUrl = mTweets.entities.media.get(0).url;
 
     Context context;
 
@@ -56,7 +58,7 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
         // populate the views according to this data
         holder.tvUsername.setText(tweet.user.name);
         holder.tvBody.setText(tweet.body);
-        holder.timeStamp.setText(tweet.createdAt);
+        holder.timeStamp.setText(getRelativeTimeAgo(tweet.createdAt));
 
         Glide.with(context).load(tweet.user.profileImageUrl)
                 .bitmapTransform(new RoundedCornersTransformation(context, 75, 0))
@@ -66,10 +68,10 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
 //                .bitmapTransform(new RoundedCornersTransformation(context, 75, 0))
 //                .into(holder.);
 
-//        Glide.with(context)
-//                .load(mediaImageUrl)
-//                .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
-//                .into(holder.media);
+        Glide.with(context)
+                .load(tweet.imageURL)
+                .bitmapTransform(new RoundedCornersTransformation(context, 25, 0))
+                .into(holder.media);
     }
 
     @Override
@@ -78,12 +80,12 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
     }
 
     // create ViewHolder class
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public  class ViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.ivProfileImage) public ImageView ivProfileImage;
         @BindView(R.id.tvUsername) public TextView tvUsername;
         @BindView(R.id.tvBody) public TextView timeStamp;
         @BindView(R.id.timeStamp) public TextView tvBody;
-        //BindView(R.id.media) ImageView media;
+        @BindView(R.id.media) ImageView media;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -91,6 +93,20 @@ public class TweetAdapter extends RecyclerView.Adapter<TweetAdapter.ViewHolder> 
             // perform findViewById lookups
 
             ButterKnife.bind(this, itemView);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+
+                    if (position != RecyclerView.NO_POSITION) {
+                        Tweet tweet = mTweets.get(position);
+                        Intent intent = new Intent(context, DetailsActivity.class);
+                        intent.putExtra("Detailed", Parcels.wrap(tweet));
+                        context.startActivity(intent);
+                    }
+                }
+            });
         }
     }
 

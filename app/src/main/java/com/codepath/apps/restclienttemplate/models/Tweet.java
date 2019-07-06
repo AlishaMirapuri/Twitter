@@ -12,6 +12,7 @@ public class Tweet {
     public long uid; // database ID for the tweet
     public User user;
     public String createdAt;
+    public String imageURL;
 
     //deserialize the JSON
     public static Tweet fromJSON(JSONObject jsonObject) throws JSONException {
@@ -22,6 +23,10 @@ public class Tweet {
         tweet.uid = jsonObject.getLong("id");
         tweet.createdAt = jsonObject.getString("created_at");
         tweet.user = User.fromJSON(jsonObject.getJSONObject("user"));
+        JSONObject entities = jsonObject.getJSONObject("entities");
+        if (entities.has("media")) {
+            tweet.imageURL = jsonObject.getJSONObject("entities").getJSONArray("media").getJSONObject(0).getString("media_url_https");
+        }
         return tweet;
     }
 
